@@ -1,16 +1,5 @@
 (require '[clojure.core.reducers :as r])
 
-;; Find the sum of all the multiples of 3 or 5 below 1000
-(defn euler1 [n]
-  (r/fold +
-    ;; filter out any numbers 
-    ;; not divisible by 3 or 5
-    (filter 
-      (fn [x] 
-        (or (== 0 (mod x 3))
-            (== 0 (mod x 5))))
-      (range n))))
-
 ;; By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 (defn fibWhile [f]
   ((fn [xs]
@@ -35,24 +24,4 @@
       ;; numbers <= n
       (fibWhile (fn [x] (<= x n))))))
 
-;; What is the largest prime factor of the number 600851475143 ?
-(defn factorize [x]
-  ((fn [curr factor primes]
-      (cond
-        (== 1 curr) 
-          primes
-        (== 0 (mod curr factor))
-          (recur (quot curr factor)
-                 2
-                 (conj primes factor))
-        :else
-          (recur curr (+ 1 factor) primes)))
-      x 2 '()))
-
-(defn euler3 [n]
-  (first (factorize n)))
-
-(do
-  (println (euler1 1000))
-  (println (euler2 4000000))
-  (println (euler3 600851475143)))
+(println (euler2 4000000))
